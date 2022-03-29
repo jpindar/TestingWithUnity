@@ -42,46 +42,41 @@ FAIL = `grep -s FAIL $(PATHR)*.txt`
 IGNORE = `grep -s IGNORE $(PATHR)*.txt`
 
 main: main.$(TARGET_EXTENSION) $(PATHO)main.o
-	@echo "done building main"
+	@echo "DONE"
 
 
 main.$(TARGET_EXTENSION): $(PATHO)main.o $(PATHO)library.o
-	@echo "linking"
 	$(LINK) -o $@ $^
-	@echo "DONE LINKING"
 
 
 test: $(BUILD_PATHS) $(RESULTS)
-	@echo "-----------------------\nIGNORES:\n-----------------------"
+  @echo "  "
+	@echo "-----------------------IGNORES:-----------------------"
 	@echo "$(IGNORE)"
-	@echo "-----------------------\nFAILURES:\n-----------------------"
+	@echo "-----------------------FAILURES:-----------------------"
 	@echo "$(FAIL)"
-	@echo "-----------------------\nPASSED:\n-----------------------"
+	@echo "-----------------------PASSED:-----------------------"
 	@echo "$(PASSED)"
-	@echo "\nDONE"
+	@echo "DONE"
 
 $(PATHR)%.txt: $(PATHB)%.$(TARGET_EXTENSION)
 	-./$< > $@ 2>&1
 
 $(PATHB)Test%.$(TARGET_EXTENSION): $(PATHO)Test%.o $(PATHO)%.o $(PATHO)unity.o
-	@echo "linking"
 	$(LINK) -o $@ $^
-	@echo "DONE LINKING"
+	@echo "DONE"
+	@echo " "
 
 $(PATHO)%.o:: $(PATHT)%.c
-	@echo "building an .o file in test dir"
 	$(COMPILE) $(CFLAGS) $< -o $@
 
 $(PATHO)%.o:: $(PATHS)%.c
-	@echo "building an .o file in src dir"
 	$(COMPILE) $(CFLAGS) $< -o $@
 
 $(PATHO)%.o:: $(PATHU)%.c $(PATHU)%.h
-	@echo "building an .o file in unity dir"
 	$(COMPILE) $(CFLAGS) $< -o $@
 
 $(PATHD)%.d:: $(PATHT)%.c
-	@echo "building a .d file in test dir"
 	$(DEPEND) $@ $<
 
 $(PATHB):
@@ -100,7 +95,7 @@ clean:
 	$(CLEANUP) $(PATHO)*.o
 	$(CLEANUP) $(PATHB)*.$(TARGET_EXTENSION)
 	$(CLEANUP) $(PATHR)*.txt
-	@echo "cleaned"
+
 
 .PRECIOUS: $(PATHB)Test%.$(TARGET_EXTENSION)
 .PRECIOUS: $(PATHD)%.d
