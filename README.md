@@ -19,6 +19,7 @@ Typical test results (created in build/results):
 test/Testlibrary.c:24:test_function_should_fail:FAIL: Expected 0 Was 1
 
 FAIL
+
 -----------------------PASSED:-----------------------
 
 test/Testlibrary.c:39:test_function_should_pass:PASS
