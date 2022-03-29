@@ -6,7 +6,7 @@ ifeq ($(OS),Windows_NT)
 	CLEANUP = rm -f
 	MKDIR = mkdir -p
   endif
-	TARGET_EXTENSION=.exe
+	TARGET_EXTENSION=exe
 else
 	CLEANUP = rm -f
 	MKDIR = mkdir -p
@@ -49,27 +49,26 @@ test: $(BUILD_PATHS) $(RESULTS)
 	@echo "\nDONE"
 
 $(PATHR)%.txt: $(PATHB)%.$(TARGET_EXTENSION)
-	@echo "\npathr"
 	-./$< > $@ 2>&1
 
-$(PATHB)Test%.$(TARGET_EXTENSION): $(PATHO)Test%.o $(PATHO)%.o $(PATHU)unity.o #$(PATHD)Test%.d
-	@echo "\npathb"
+$(PATHB)Test%.$(TARGET_EXTENSION): $(PATHO)Test%.o $(PATHO)%.o $(PATHU)unity.o $(PATHD)Test%.d
+	@echo "linking1"
 	$(LINK) -o $@ $^
 
 $(PATHO)%.o:: $(PATHT)%.c
-	@echo "\npatho1"
+	@echo "building an .o file in test dir"
 	$(COMPILE) $(CFLAGS) $< -o $@
 
 $(PATHO)%.o:: $(PATHS)%.c
-	@echo "\npatho2"
+	@echo "building an .o file in src dir"
 	$(COMPILE) $(CFLAGS) $< -o $@
 
 $(PATHO)%.o:: $(PATHU)%.c $(PATHU)%.h
-	@echo "\npatho3"
+	@echo "building an .o file in unity dir"
 	$(COMPILE) $(CFLAGS) $< -o $@
 
 $(PATHD)%.d:: $(PATHT)%.c
-	@echo "\npatho4"
+	@echo "building a .d file in test dir"
 	$(DEPEND) $@ $<
 
 $(PATHB):
@@ -88,6 +87,7 @@ clean:
 	$(CLEANUP) $(PATHO)*.o
 	$(CLEANUP) $(PATHB)*.$(TARGET_EXTENSION)
 	$(CLEANUP) $(PATHR)*.txt
+	@echo "cleaned"
 
 .PRECIOUS: $(PATHB)Test%.$(TARGET_EXTENSION)
 .PRECIOUS: $(PATHD)%.d
