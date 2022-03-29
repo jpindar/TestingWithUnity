@@ -41,11 +41,11 @@ PASSED = `grep -s PASS $(PATHR)*.txt`
 FAIL = `grep -s FAIL $(PATHR)*.txt`
 IGNORE = `grep -s IGNORE $(PATHR)*.txt`
 
-main: build/main.exe $(PATHO)main.o
+main: main.exe $(PATHO)main.o
 	@echo "done building main"
 
 
-$(PATHB)main.$(TARGET_EXTENSION): $(PATHO)main.o $(PATHO)library.o
+main.$(TARGET_EXTENSION): $(PATHO)main.o $(PATHO)library.o
 	@echo "linking"
 	$(LINK) -o $@ $^
 	@echo "DONE LINKING"
