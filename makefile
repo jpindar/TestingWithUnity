@@ -51,9 +51,13 @@ test: $(BUILD_PATHS) $(RESULTS)
 $(PATHR)%.txt: $(PATHB)%.$(TARGET_EXTENSION)
 	-./$< > $@ 2>&1
 
-$(PATHB)Test%.$(TARGET_EXTENSION): $(PATHO)Test%.o $(PATHO)%.o $(PATHU)unity.o $(PATHD)Test%.d
-	@echo "linking1"
+#$(PATHB)Test%.$(TARGET_EXTENSION): $(PATHO)Test%.o $(PATHO)%.o $(PATHO)unity.o $(PATHD)Test%.d
+#$(PATHB)Test%.$(TARGET_EXTENSION): $(PATHO)Test%.o $(PATHO)%.o $(PATHU)unity.o $(PATHD)Test%.d
+
+$(PATHB)Test%.$(TARGET_EXTENSION): $(PATHO)Test%.o $(PATHO)%.o $(PATHO)unity.o
+	@echo "linking"
 	$(LINK) -o $@ $^
+	@echo "DONE LINKING"
 
 $(PATHO)%.o:: $(PATHT)%.c
 	@echo "building an .o file in test dir"
