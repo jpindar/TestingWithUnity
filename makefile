@@ -35,9 +35,21 @@ CFLAGS=-I. -I$(PATHU) -I$(PATHS) -DTEST
 
 RESULTS = $(patsubst $(PATHT)Test%.c,$(PATHR)Test%.txt,$(SRCT) )
 
+CODE = $(PATHS)%.c
+
 PASSED = `grep -s PASS $(PATHR)*.txt`
 FAIL = `grep -s FAIL $(PATHR)*.txt`
 IGNORE = `grep -s IGNORE $(PATHR)*.txt`
+
+main: build/main.exe build/obj/main.o
+	@echo "main"
+	@echo "$(CODE)"
+
+$(PATHB)main.$(TARGET_EXTENSION): $(PATHO)main.o $(PATHO)library.o
+	@echo "linking"
+	$(LINK) -o $@ $^
+	@echo "DONE LINKING"
+
 
 test: $(BUILD_PATHS) $(RESULTS)
 	@echo "-----------------------\nIGNORES:\n-----------------------"
