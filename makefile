@@ -23,6 +23,7 @@ PATHB = build/
 PATHD = build/depends/
 PATHO = build/objs/
 PATHR = build/results/
+PATHI = include/
 
 BUILD_PATHS = $(PATHB) $(PATHD) $(PATHO) $(PATHR)
 
@@ -31,7 +32,10 @@ SRCT = $(wildcard $(PATHT)*.c)
 COMPILE=gcc -c
 LINK=gcc
 DEPEND=gcc -MM -MG -MF
-CFLAGS=-I. -I$(PATHU) -I$(PATHS) -DTEST
+
+CFLAGS=-I.
+CFLAGS+= -I$(PATHU) -I$(PATHS) -I$(PATHI)
+CFLAGS+= -DTEST
 
 RESULTS = $(patsubst $(PATHT)Test%.c,$(PATHR)Test%.txt,$(SRCT) )
 
@@ -50,7 +54,7 @@ main.$(TARGET_EXTENSION): $(PATHO)main.o $(PATHO)library.o
 
 
 test: $(BUILD_PATHS) $(RESULTS)
-  @echo "  "
+	@echo "  "
 	@echo "-----------------------IGNORES:-----------------------"
 	@echo "$(IGNORE)"
 	@echo "-----------------------FAILURES:-----------------------"
