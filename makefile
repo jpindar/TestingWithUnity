@@ -1,3 +1,16 @@
+# makefile for building simple C programs with the Unity test framework
+# Unity is from http://www.throwtheswitch.org
+# This makefile is based on the examples from Unity
+# 
+# make main builds the main program
+# make tests build the test runner with Unity
+# make clean deletes the .o and .exe files
+# make with no arguments executes the first rule in the makefile
+
+# this file works in Git Bash
+# it looks like it was supposed to work in Windows but it doesn't
+
+
 ifeq ($(OS),Windows_NT)
   ifeq ($(shell uname -s),) # not in a bash-like shell
 	CLEANUP = del /F /Q
@@ -66,6 +79,8 @@ test: $(BUILD_PATHS) $(RESULTS)
 $(PATHR)%.txt: $(PATHB)%.$(TARGET_EXTENSION)
 	-./$< > $@ 2>&1
 
+# test file is named after the module it's testing
+# for example,  test/TestLibrary1.exe    build/obj/TestLibrary1.o
 $(PATHB)Test%.$(TARGET_EXTENSION): $(PATHO)Test%.o $(PATHO)%.o $(PATHO)unity.o
 	$(LINK) -o $@ $^
 	@echo "DONE"
