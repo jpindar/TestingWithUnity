@@ -28,6 +28,9 @@ endif
 
 .PHONY: clean
 .PHONY: test
+.PHONY: main
+
+MAINSRC = mainfile
 
 PATHU = unity/src/
 PATHS = src/
@@ -52,17 +55,16 @@ CFLAGS+= -DTEST
 
 RESULTS = $(patsubst $(PATHT)Test%.c,$(PATHR)Test%.txt,$(SRCT) )
 
-CODE = $(PATHS)%.c
 
 PASSED = `grep -s PASS $(PATHR)*.txt`
 FAIL = `grep -s FAIL $(PATHR)*.txt`
 IGNORE = `grep -s IGNORE $(PATHR)*.txt`
 
-main: main.$(TARGET_EXTENSION) $(PATHO)main.o
+main: $(MAINSRC).$(TARGET_EXTENSION) $(PATHO)$(MAINSRC).o
 	@echo "DONE"
 
 
-main.$(TARGET_EXTENSION): $(PATHO)main.o $(PATHO)library.o
+# $(MAINSRC).$(TARGET_EXTENSION): $(PATHO)$(MAINSRC).o $(PATHO)library1.o $(PATHO)library2.o
 	$(LINK) -o $@ $^
 
 
