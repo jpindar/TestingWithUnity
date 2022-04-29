@@ -44,6 +44,7 @@ PATHI = include/
 BUILD_PATHS = $(PATHB) $(PATHD) $(PATHO) $(PATHR)
 
 SRCT = $(wildcard $(PATHT)*.c)
+SRCS = $(wildcard $(PATHS)*.c)
 
 COMPILE=gcc -c
 LINK=gcc
@@ -54,7 +55,7 @@ CFLAGS+= -I$(PATHU) -I$(PATHS) -I$(PATHI)
 CFLAGS+= -DTEST
 
 RESULTS = $(patsubst $(PATHT)Test%.c,$(PATHR)Test%.txt,$(SRCT) )
-
+OBJECTFILES = $(patsubst $(PATHS)%.c,$(PATHO)%.o,$(SRCS) )
 
 PASSED = `grep -s PASS $(PATHR)*.txt`
 FAIL = `grep -s FAIL $(PATHR)*.txt`
@@ -65,6 +66,8 @@ main: $(MAINSRC).$(TARGET_EXTENSION) $(PATHO)$(MAINSRC).o
 
 
 # $(MAINSRC).$(TARGET_EXTENSION): $(PATHO)$(MAINSRC).o $(PATHO)library1.o $(PATHO)library2.o
+# this will build all the .c files it finds in src/
+$(MAINSRC).$(TARGET_EXTENSION): $(PATHO)$(MAINSRC).o $(OBJECTFILES)
 	$(LINK) -o $@ $^
 
 
