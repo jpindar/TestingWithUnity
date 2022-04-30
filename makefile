@@ -50,8 +50,10 @@ COMPILE=gcc -c
 LINK=gcc
 DEPEND=gcc -MM -MG -MF
 
-CFLAGS=-I.
-CFLAGS+= -I$(PATHU) -I$(PATHS) -I$(PATHI)
+CFLAGS= -Wall
+CFLAGS+= -Wextra
+# CFLAGS+= -Werror
+CFLAGS+= -I. -I$(PATHU) -I$(PATHS) -I$(PATHI)
 CFLAGS+= -DTEST
 
 RESULTS = $(patsubst $(PATHT)Test%.c,$(PATHR)Test%.txt,$(SRCT) )
