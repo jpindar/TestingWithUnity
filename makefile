@@ -32,7 +32,7 @@ endif
 
 MAINSRC = mainfile
 
-PATHU = unity/src/
+PATHU = ../unity/src/
 PATHS = src/
 PATHT = test/
 PATHB = build/
