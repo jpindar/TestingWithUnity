@@ -1,7 +1,7 @@
 # makefile for building simple C programs with the Unity test framework
 # Unity is from http://www.throwtheswitch.org
 # This makefile is based on the examples from Unity
-# 
+#
 # make main builds the main program
 # make tests build the test runner with Unity
 # make clean deletes the .o and .exe files
@@ -10,6 +10,7 @@
 # this file works in Git Bash
 # it looks like it was supposed to work in Windows but it doesn't
 
+TARGET = mainfile
 
 ifeq ($(OS),Windows_NT)
   ifeq ($(shell uname -s),) # not in a bash-like shell
@@ -29,8 +30,6 @@ endif
 .PHONY: clean
 .PHONY: test
 .PHONY: main
-
-MAINSRC = mainfile
 
 PATHU = ../unity/src/
 PATHS = src/
@@ -63,13 +62,12 @@ PASSED = `grep -s PASS $(PATHR)*.txt`
 FAIL = `grep -s FAIL $(PATHR)*.txt`
 IGNORE = `grep -s IGNORE $(PATHR)*.txt`
 
-main: $(MAINSRC).$(TARGET_EXTENSION) $(PATHO)$(MAINSRC).o
+main: $(TARGET).$(TARGET_EXTENSION) $(PATHO)$(TARGET).o
 	@echo "DONE"
 
 
-# $(MAINSRC).$(TARGET_EXTENSION): $(PATHO)$(MAINSRC).o $(PATHO)library1.o $(PATHO)library2.o
 # this will build all the .c files it finds in src/
-$(MAINSRC).$(TARGET_EXTENSION): $(PATHO)$(MAINSRC).o $(OBJECTFILES)
+$(TARGET).$(TARGET_EXTENSION): $(PATHO)$(TARGET).o $(OBJECTFILES)
 	$(LINK) -o $@ $^
 
 
