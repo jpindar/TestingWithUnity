@@ -62,7 +62,7 @@ PASSED = `grep -s PASS $(PATHR)*.txt`
 FAIL = `grep -s FAIL $(PATHR)*.txt`
 IGNORE = `grep -s IGNORE $(PATHR)*.txt`
 
-main: $(TARGET).$(TARGET_EXTENSION) $(PATHO)$(TARGET).o
+main: $(BUILD_PATHS) $(TARGET).$(TARGET_EXTENSION) $(PATHO)$(TARGET).o
 	@echo "DONE"
 
 
